@@ -1,11 +1,17 @@
 on: push
-name: Jenkins single-shot master
+name: Jenkins
 jobs:
-  jenkinsfile-runner-prepackaged:
+  jenkinsfile-runner:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jenkinsci/jenkinsfile-runner:master
     steps:
     - uses: actions/checkout@master
-    - name: jenkinsfile-runner-prepackaged
-      uses: jenkinsci/jenkinsfile-runner-github-actions/jenkinsfile-runner-prepackaged@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - uses: jenkinsci/jfr-setup-action@master
+    - uses: jenkinsci/jfr-runtime-action@master
+      with:
+        command: run
+        jenkinsfile: Jenkinsfile
