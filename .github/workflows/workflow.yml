@@ -1,17 +1,15 @@
 name: CI
 on: [push]
 jobs:
-  jenkins:
+  job-name:
     runs-on: ubuntu-latest
-    container:
-       image: ghcr.io/cr1t-gym/jenkinsfile-runner-image-release-test:master
     steps:
-        - uses: actions/checkout@v2
-        - name: Jenkins pipeline 
-          id: jenkins_pipeline
-          uses:
-            Cr1t-GYM/jenkins-action-poc/jfr-container-action@master
-          with:
-            command: run
-            jenkinsfile: Jenkinsfile
-            pluginstxt: plugins.txt
+      - uses: actions/checkout@v2
+      - uses: jenkinsci/jfr-setup-action@master
+      - uses: jenkinsci/jfr-plugin-installation-action@master
+        with:
+          pluginstxt: plugins.txt
+      - uses: jenkinsci/jfr-runtime-action@master
+        with:
+          command: run
+          jenkinsfile: Jenkinsfile
