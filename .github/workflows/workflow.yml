@@ -10,8 +10,13 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    - uses: jenkinsci/jfr-setup-action@master
-    - uses: jenkinsci/jfr-runtime-action@master
+    # - uses: jenkinsci/jfr-setup-action@master
+    # - uses: jenkinsci/jfr-runtime-action@master
+    #   with:
+    #     command: run
+    #     jenkinsfile: Jenkinsfile
+    - uses:
+        jenkinsci/jfr-static-image-action@master
       with:
         command: run
         jenkinsfile: Jenkinsfile
