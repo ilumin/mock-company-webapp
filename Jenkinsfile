@@ -1,18 +1,10 @@
 pipeline {
-  /*
-   *   See documentation: https://www.jenkins.io/doc/book/pipeline/syntax/#stages
-   */
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh 'echo BUILD!'
-      }
+    agent any
+    stages {
+        stage('hello') {
+            steps {
+                sh 'echo Hello Jenkins!'
+            }
+        }
     }
-    stage('Test') {
-      steps {
-        sh 'echo TEST!'
-      }
-    }
-  }
 }

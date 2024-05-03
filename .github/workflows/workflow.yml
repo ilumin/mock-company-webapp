@@ -1,22 +1,16 @@
-on: push
-name: Jenkins
+name: Java CI
+on: [push]
 jobs:
-  jenkinsfile-runner:
+  jenkins-container-pipeline:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/jenkinsci/jenkinsfile-runner:master
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    # - uses: jenkinsci/jfr-setup-action@master
-    # - uses: jenkinsci/jfr-runtime-action@master
-    #   with:
-    #     command: run
-    #     jenkinsfile: Jenkinsfile
-    - uses:
-        jenkinsci/jfr-static-image-action@master
-      with:
-        command: run
-        jenkinsfile: Jenkinsfile
+      - uses: actions/checkout@v2
+      - uses:
+          jenkinsci/jfr-container-action@master
+        with:
+          command: run
+          jenkinsfile: Jenkinsfile
+          pluginstxt: plugins.txt
+          # jcasc: jcasc.yml
