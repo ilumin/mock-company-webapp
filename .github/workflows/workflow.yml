@@ -1,21 +1,11 @@
-name: Java CI
-on: [push]
+on: push
+name: Jenkins single-shot master
 jobs:
-  jenkins-container-pipeline:
+  jenkinsfile-runner-prepackaged:
     runs-on: ubuntu-latest
-    name: jenkins-prebuilt-container-test
-    container:
-      # prerequisite
-      image: ghcr.io/jenkinsci/jenkinsfile-runner:master
     steps:
-      - uses: actions/checkout@v2
-      # jfr-container-action
-      - name: Jenkins pipeline in the container
-        id: jenkins_pipeline_container
-        uses:
-          jenkinsci/jfr-container-action@master
-        with:
-          command: run
-          jenkinsfile: Jenkinsfile
-          pluginstxt: plugins.txt
-          # jcasc: jcasc.yml
+    - uses: actions/checkout@master
+    - name: jenkinsfile-runner-prepackaged
+      uses: jenkinsci/jenkinsfile-runner-github-actions/jenkinsfile-runner-prepackaged@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
